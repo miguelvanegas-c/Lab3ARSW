@@ -50,7 +50,7 @@ src/main/java/edu/eci/arsw/blueprints
 ## 📖 Actividades del laboratorio
 
 ### 1. Familiarización con el código base
-- Revisa el paquete `model` con las clases `Blueprint` y `Point`.  
+- Revisa el paquete `model` con las clases `Blueprint` y `Point`.
 - Entiende la capa `persistence` con `InMemoryBlueprintPersistence`.  
 - Analiza la capa `services` (`BlueprintsServices`) y el controlador `BlueprintsAPIController`.
 
