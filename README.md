@@ -51,7 +51,32 @@ src/main/java/edu/eci/arsw/blueprints
 
 ### 1. Familiarización con el código base
 - Revisa el paquete `model` con las clases `Blueprint` y `Point`.
+
+    **Point** es un record, que representa un punto en un plano cartesiano con ejes x y y.
+
+    ![Point](img.png)
+
+    **Bluesprint** por otro lado, se integra de lo siguiente:
+  - Un nombre.
+  - Un autor.
+  - Una lista de Point que integra el plano.
+  
+    ![Blueprint](img_1.png)
+    
 - Entiende la capa `persistence` con `InMemoryBlueprintPersistence`.  
+
+    La capa de persistencia es una implementación del patron DAO.
+
+    ![patronDAO](img_3.png)
+    
+    - BlueprintPersistence define los métodos de interacción con la base de datos.
+    - InMemoryBlueprintPersistence implementa la interfaz y guarda los valores en memoria.
+    - Los TransferObjects es la propia clase Bluesprint.
+    
+    InMemory crea predeterminadamente cuando se levanta la aplicación una lista con algunos predeterminados y lo guarda
+    como un atributo, permite crear, eliminar y leer nuevos Bluesprint. Pero se reinicia el guardado cada vez que se levanta
+    de nuevo la aplicación.
+    
 - Analiza la capa `services` (`BlueprintsServices`) y el controlador `BlueprintsAPIController`.
 
 ### 2. Migración a persistencia en PostgreSQL
