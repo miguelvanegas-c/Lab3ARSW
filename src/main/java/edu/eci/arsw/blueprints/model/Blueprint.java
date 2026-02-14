@@ -1,37 +1,46 @@
 package edu.eci.arsw.blueprints.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Data
 public class Blueprint {
 
+    @Id
+    private String id;
     private String author;
     private String name;
-    private final List<Point> points = new ArrayList<>();
+    @OneToMany(mappedBy = "blueprint, cascade = cascade")
+    private List<Point> points = new ArrayList<>();
 
-    public Blueprint(String author, String name, List<Point> pts) {
+    public Blueprint(String author, String name, List<Point> points){
+        this.id = author + ":" + name;
         this.author = author;
         this.name = name;
-        if (pts != null) points.addAll(pts);
+        this.points.addAll(points);
     }
 
-    public String getAuthor() { return author; }
-    public String getName() { return name; }
+    public Blueprint(String author, String name) {
+        this.author = author;
+        this.name = name;
+    }
+
     public List<Point> getPoints() { return Collections.unmodifiableList(points); }
 
-    public void addPoint(Point p) { points.add(p); }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Blueprint bp)) return false;
-        return Objects.equals(author, bp.author) && Objects.equals(name, bp.name);
+    public void addPoint(Point p) {
+        points.add(p);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(author, name);
-    }
 }

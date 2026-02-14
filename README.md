@@ -89,16 +89,27 @@ src/main/java/edu/eci/arsw/blueprints
     ![DockerCompose](img_2.png)
 
     
-- Implementa un nuevo repositorio `PostgresBlueprintPersistence` que reemplace la versión en memoria.  
+- Implementa un nuevo repositorio `PostgresBlueprintPersistence` que reemplace la versión en memoria. 
+- Mantén el contrato de la interfaz `BlueprintPersistence`.
 
     - Lo primero que es necesario para el funcionamiento de la aplicación con postgresql, es añadir las siguientes
     dependencias.
     
     ![Dependencias](img_4.png)
-
-    Ya con las dependencias, primero se crea el nuevo repositorio
     
-- Mantén el contrato de la interfaz `BlueprintPersistence`.  
+    Una para el uso de JPA(Java Persistence API) Para gestionar la persistencia, permitiendo mapear objetos
+    Java a tablas de bases de datos relacionales. La otra dependencia permite que la aplicación se conecte con Postgresql
+
+    - Ya con las dependencias, primero se crea el nuevo repositorio, el cual tiene dos características muy importantes:
+      1. Extiende JpaRepository que es una interfaz que facilita la comunicación con la base de datos.
+      2. Extiende BlueprintPersistence para seguir el patron de DAO, de esta forma se mantiene tanto la extensibilidad,
+        como el desacople del sistema.
+      ![PostgresBlueprintPersistence](img_5.png)
+    
+    - También fue necesario realizar algunos cambios en las clases de Bluesprint y point para que la implementación funcione correctamente.
+        1. Se modifico primero 
+    
+  
 
 ### 3. Buenas prácticas de API REST
 - Cambia el path base de los controladores a `/api/v1/blueprints`.  
