@@ -78,10 +78,26 @@ src/main/java/edu/eci/arsw/blueprints
     de nuevo la aplicación.
     
 - Analiza la capa `services` (`BlueprintsServices`) y el controlador `BlueprintsAPIController`.
-
+    - La capa BlueprintsServices cumple el rol de intermediario entre el controlador y la capa de persistencia, encapsulando la lógica de negocio de la aplicación. Esto permite que los controladores no accedan directamente a la base de datos, promoviendo una separación clara de responsabilidades.
+    - El BlueprintsAPIController se encarga exclusivamente de exponer los endpoints REST, recibir las solicitudes HTTP, validar los datos de entrada y delegar el procesamiento al servicio inyectado por Spring mediante inyección de dependencias.
+    - Este diseño sigue una arquitectura (Controller - Service - Persistence).
+  
 ### 2. Migración a persistencia en PostgreSQL
 - Configura una base de datos PostgreSQL (puedes usar Docker).  
+    Usando docker, con la imagen de postgres, fue sencillo construir un contenedor con la api y la base de datos.
+    
+    ![DockerCompose](img_2.png)
+
+    
 - Implementa un nuevo repositorio `PostgresBlueprintPersistence` que reemplace la versión en memoria.  
+
+    - Lo primero que es necesario para el funcionamiento de la aplicación con postgresql, es añadir las siguientes
+    dependencias.
+    
+    ![Dependencias](img_4.png)
+
+    Ya con las dependencias, primero se crea el nuevo repositorio
+    
 - Mantén el contrato de la interfaz `BlueprintPersistence`.  
 
 ### 3. Buenas prácticas de API REST
