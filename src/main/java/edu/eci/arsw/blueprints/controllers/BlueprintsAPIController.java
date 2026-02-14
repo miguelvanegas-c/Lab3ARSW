@@ -30,7 +30,7 @@ public class BlueprintsAPIController {
     @GetMapping
     public ApiResponse<Set<Blueprint>> getAll() {
         Set<Blueprint> blueprints = services.getAllBlueprints();
-        return new ApiResponse<Set<Blueprint>>(HttpStatus.OK.value(), "The query was successful.",blueprints);
+        return new ApiResponse<>(HttpStatus.OK.value(), "The query was successful.", blueprints);
     }
 
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Successful query")
@@ -41,7 +41,7 @@ public class BlueprintsAPIController {
     @GetMapping("/{author}")
     public ApiResponse<Set<Blueprint>> byAuthor(@PathVariable String author) throws BlueprintNotFoundException{
         Set<Blueprint> blueprints = services.getBlueprintsByAuthor(author);
-        return new ApiResponse<Set<Blueprint>>(HttpStatus.OK.value(), "The query was successful.",blueprints);
+        return new ApiResponse<>(HttpStatus.OK.value(), "The query was successful.", blueprints);
 
     }
 
@@ -53,7 +53,7 @@ public class BlueprintsAPIController {
     @GetMapping("/{author}/{bpname}")
     public ApiResponse<Blueprint> byAuthorAndName(@PathVariable String author, @PathVariable String bpname) throws BlueprintNotFoundException {
         Blueprint blueprint = services.getBlueprint(author, bpname);
-        return new ApiResponse<Blueprint>(HttpStatus.OK.value(), "The query was successful.",blueprint);
+        return new ApiResponse<>(HttpStatus.OK.value(), "The query was successful.", blueprint);
 
     }
 
@@ -66,7 +66,7 @@ public class BlueprintsAPIController {
     public ApiResponse<Blueprint> add(@Valid @RequestBody NewBlueprintRequest req) throws BlueprintPersistenceException{
         Blueprint bp = new Blueprint(req.author(), req.name(), req.points());
         services.addNewBlueprint(bp);
-        return new ApiResponse<Blueprint>(HttpStatus.CREATED.value(),"The blueprint was created", bp);
+        return new ApiResponse<>(HttpStatus.CREATED.value(), "The blueprint was created", bp);
     }
 
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Successful query")

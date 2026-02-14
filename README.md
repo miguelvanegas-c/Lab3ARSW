@@ -85,6 +85,10 @@ src/main/java/edu/eci/arsw/blueprints
 ### 2. Migración a persistencia en PostgreSQL
 - Configura una base de datos PostgreSQL (puedes usar Docker).  
     Usando docker, con la imagen de postgres, fue sencillo construir un contenedor con la api y la base de datos.
+
+     ```bash
+    docker compose up ---build
+    ```
     
     ![DockerCompose](imgs/img_2.png)
 
