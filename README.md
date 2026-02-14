@@ -106,13 +106,24 @@ src/main/java/edu/eci/arsw/blueprints
         como el desacople del sistema.
       ![PostgresBlueprintPersistence](img_5.png)
     
-    - También fue necesario realizar algunos cambios en las clases de Bluesprint y point para que la implementación funcione correctamente.
-        1. Se modifico primero 
-    
+    - También fue necesario realizar algunos cambios en las clases de Blueprint y point para que la implementación funcione correctamente.
+        1. Se modificó primero Point debido a que íbamos a usar una base de datos en postgres se podía llegar a tener problemas en caso de que
+        Se mantuviera como un record, se hizo el cambio a una clase, se le añadio la anotación de entity, NoArgsConstructor, se construyo el campo id y se hizo la relación con Blueprint.
+        
+        ![NewPoint](img_6.png)
+
+        2. Después se modificó blueprint con un proceso parecido al de Point, con la diferencia que la relación con point se marcó de uno a muchos,
+        también se construyó el campo id.
+      
+        ![NewBlueprint](img_7.png)
+        
   
 
 ### 3. Buenas prácticas de API REST
 - Cambia el path base de los controladores a `/api/v1/blueprints`.  
+    
+![NewPath](img_8.png)
+
 - Usa **códigos HTTP** correctos:  
   - `200 OK` (consultas exitosas).  
   - `201 Created` (creación).  
@@ -131,11 +142,36 @@ src/main/java/edu/eci/arsw/blueprints
     "data": { "author": "john", "name": "house", "points": [...] }
   }
   ```
+  - Para cumplir con buenas prácticas de API REST, se realizaron los siguientes campos:
+    1. Primero se creó una clase que maneje las excepciones y sus respuestas, dependiendo la excepción la toma y crea un APIResponse,  
+
+    ![ExceptionController](img_9.png)
+  
+    2. Para que las respuestas de las excepciones funcionen, también se modifico el BlueprintsAPIController, ya que en vez de manejar
+        las excepciones las propaga.
+    3. Aparte en el controller se modifico la manera en la que devuelven las respuestas y se redujo la cantidad de codigo, ya que dejo de ser
+        necesario su manejo.
+    
+    ![NewResponse](img_10.png)
+    
 
 ### 4. OpenAPI / Swagger
-- Configura `springdoc-openapi` en el proyecto.  
+- Configura `springdoc-openapi` en el proyecto.
 - Expón documentación automática en `/swagger-ui.html`.  
 - Anota endpoints con `@Operation` y `@ApiResponse`.
+    
+    1. Se busca y se agrega la dependencia con la version más actual, compatible con la versión usada de springboot:
+    
+        ![swaggerDependency](img_11.png)
+  
+    2. Una vez agregada se valida que se esté generando correctamente, construyendo el docker y entrando a la url:
+  
+        ![swaggerview](img_12.png)
+    
+    3. Se agregaron las respectivas anotaciones y se personalizó una pequeña parte de la documentación.
+    
+        ![swaggerPersonalization](img_13.png)
+    
 
 ### 5. Filtros de *Blueprints*
 - Implementa filtros:
@@ -144,6 +180,9 @@ src/main/java/edu/eci/arsw/blueprints
 - Activa los filtros mediante perfiles de Spring (`redundancy`, `undersampling`).  
 
 ---
+- Los filtros ya se encuentran implementados, se realiza la activación por medio del properties.
+    
+    ![filtros](img_14.png)    
 
 ## ✅ Entregables
 

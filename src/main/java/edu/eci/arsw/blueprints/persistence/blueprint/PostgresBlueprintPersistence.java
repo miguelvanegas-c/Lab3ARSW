@@ -15,10 +15,10 @@ import java.util.Set;
 
 @Repository
 @Primary
-public interface PostgresBlueprintPersistence extends JpaRepository<Blueprint,String>, BlueprintPersistence {
+public interface PostgresBlueprintPersistence extends JpaRepository<Blueprint,Long>, BlueprintPersistence {
     @Override
     default void saveBlueprint(Blueprint bp) throws BlueprintPersistenceException{
-        Optional<Blueprint> blueprint = findById(bp.getId());
+        Optional<Blueprint> blueprint = findByAuthorAndName(bp.getAuthor(), bp.getName());
         if(blueprint.isPresent()){
             this.save(bp);
         }else{
@@ -27,7 +27,7 @@ public interface PostgresBlueprintPersistence extends JpaRepository<Blueprint,St
     }
 
     default Blueprint getBlueprint(String author, String name) throws BlueprintNotFoundException {
-        return findById(author+":"+name)
+        return findByAuthorAndName(author,name)
                 .orElseThrow(()-> new BlueprintNotFoundException("Blueprint not found: %s/%s".formatted(author, name)));
     }
 
@@ -51,4 +51,5 @@ public interface PostgresBlueprintPersistence extends JpaRepository<Blueprint,St
         save(blueprint);
     }
     Set<Blueprint> findAllByAuthor(String author);
+    Optional<Blueprint> findByAuthorAndName(String author, String name);
 }

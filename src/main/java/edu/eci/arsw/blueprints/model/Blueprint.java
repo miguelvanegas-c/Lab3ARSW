@@ -1,31 +1,27 @@
 package edu.eci.arsw.blueprints.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
+
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
+
 
 @Entity
 @Data
 public class Blueprint {
 
     @Id
-    private String id;
+    private Long id;
     private String author;
     private String name;
-    @OneToMany(mappedBy = "blueprint, cascade = cascade")
+    @OneToMany(mappedBy = "blueprint", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Point> points = new ArrayList<>();
 
     public Blueprint(String author, String name, List<Point> points){
-        this.id = author + ":" + name;
         this.author = author;
         this.name = name;
         this.points.addAll(points);
