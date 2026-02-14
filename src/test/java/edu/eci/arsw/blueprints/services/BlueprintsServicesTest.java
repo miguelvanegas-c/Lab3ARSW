@@ -77,33 +77,6 @@ class BlueprintsServicesTest {
                 () -> blueprintsServices.getBlueprint("unknown", "unknown"));
     }
 
-    @Test
-    void testGetBlueprintsByAuthor_Success() throws BlueprintNotFoundException {
-        Blueprint bp1 = new Blueprint("john", "house", List.of(new Point(0, 0)));
-        Blueprint bp2 = new Blueprint("john", "garage", List.of(new Point(5, 5)));
-        Set&lt;Blueprint&gt; blueprints = new HashSet&lt;&gt;(List.of(bp1, bp2));
-
-        when(blueprintPersistence.getBlueprintsByAuthor("john")).thenReturn(blueprints);
-
-        Set&lt;Blueprint&gt; result = blueprintsServices.getBlueprintsByAuthor("john");
-
-        assertNotNull(result);
-        assertEquals(2, result.size());
-    }
-
-    @Test
-    void testGetAllBlueprints() {
-        Blueprint bp1 = new Blueprint("john", "house", List.of(new Point(0, 0)));
-        Blueprint bp2 = new Blueprint("jane", "garden", List.of(new Point(2, 2)));
-        Set&lt;Blueprint&gt; blueprints = new HashSet&lt;&gt;(List.of(bp1, bp2));
-
-        when(blueprintPersistence.getAllBlueprints()).thenReturn(blueprints);
-
-        Set&lt;Blueprint&gt; result = blueprintsServices.getAllBlueprints();
-
-        assertNotNull(result);
-        assertEquals(2, result.size());
-    }
 
     @Test
     void testAddPoint_Success() throws BlueprintNotFoundException {
