@@ -54,20 +54,20 @@ src/main/java/edu/eci/arsw/blueprints
 
     **Point** es un record, que representa un punto en un plano cartesiano con ejes x y y.
 
-    ![Point](img.png)
+    ![Point](imgs/img.png)
 
     **Bluesprint** por otro lado, se integra de lo siguiente:
   - Un nombre.
   - Un autor.
   - Una lista de Point que integra el plano.
   
-    ![Blueprint](img_1.png)
+    ![Blueprint](imgs/img_1.png)
     
 - Entiende la capa `persistence` con `InMemoryBlueprintPersistence`.  
 
     La capa de persistencia es una implementación del patron DAO.
 
-    ![patronDAO](img_3.png)
+    ![patronDAO](imgs/img_3.png)
     
     - BlueprintPersistence define los métodos de interacción con la base de datos.
     - InMemoryBlueprintPersistence implementa la interfaz y guarda los valores en memoria.
@@ -86,7 +86,7 @@ src/main/java/edu/eci/arsw/blueprints
 - Configura una base de datos PostgreSQL (puedes usar Docker).  
     Usando docker, con la imagen de postgres, fue sencillo construir un contenedor con la api y la base de datos.
     
-    ![DockerCompose](img_2.png)
+    ![DockerCompose](imgs/img_2.png)
 
     
 - Implementa un nuevo repositorio `PostgresBlueprintPersistence` que reemplace la versión en memoria. 
@@ -95,7 +95,7 @@ src/main/java/edu/eci/arsw/blueprints
     - Lo primero que es necesario para el funcionamiento de la aplicación con postgresql, es añadir las siguientes
     dependencias.
     
-    ![Dependencias](img_4.png)
+    ![Dependencias](imgs/img_4.png)
     
     Una para el uso de JPA(Java Persistence API) Para gestionar la persistencia, permitiendo mapear objetos
     Java a tablas de bases de datos relacionales. La otra dependencia permite que la aplicación se conecte con Postgresql
@@ -104,25 +104,25 @@ src/main/java/edu/eci/arsw/blueprints
       1. Extiende JpaRepository que es una interfaz que facilita la comunicación con la base de datos.
       2. Extiende BlueprintPersistence para seguir el patron de DAO, de esta forma se mantiene tanto la extensibilidad,
         como el desacople del sistema.
-      ![PostgresBlueprintPersistence](img_5.png)
+      ![PostgresBlueprintPersistence](imgs/img_5.png)
     
     - También fue necesario realizar algunos cambios en las clases de Blueprint y point para que la implementación funcione correctamente.
         1. Se modificó primero Point debido a que íbamos a usar una base de datos en postgres se podía llegar a tener problemas en caso de que
         Se mantuviera como un record, se hizo el cambio a una clase, se le añadio la anotación de entity, NoArgsConstructor, se construyo el campo id y se hizo la relación con Blueprint.
         
-        ![NewPoint](img_6.png)
+        ![NewPoint](imgs/img_6.png)
 
         2. Después se modificó blueprint con un proceso parecido al de Point, con la diferencia que la relación con point se marcó de uno a muchos,
         también se construyó el campo id.
       
-        ![NewBlueprint](img_7.png)
+        ![NewBlueprint](imgs/img_7.png)
         
   
 
 ### 3. Buenas prácticas de API REST
 - Cambia el path base de los controladores a `/api/v1/blueprints`.  
     
-![NewPath](img_8.png)
+![NewPath](imgs/img_8.png)
 
 - Usa **códigos HTTP** correctos:  
   - `200 OK` (consultas exitosas).  
@@ -145,14 +145,14 @@ src/main/java/edu/eci/arsw/blueprints
   - Para cumplir con buenas prácticas de API REST, se realizaron los siguientes campos:
     1. Primero se creó una clase que maneje las excepciones y sus respuestas, dependiendo la excepción la toma y crea un APIResponse,  
 
-    ![ExceptionController](img_9.png)
+    ![ExceptionController](imgs/img_9.png)
   
     2. Para que las respuestas de las excepciones funcionen, también se modifico el BlueprintsAPIController, ya que en vez de manejar
         las excepciones las propaga.
     3. Aparte en el controller se modifico la manera en la que devuelven las respuestas y se redujo la cantidad de codigo, ya que dejo de ser
         necesario su manejo.
     
-    ![NewResponse](img_10.png)
+    ![NewResponse](imgs/img_10.png)
     
 
 ### 4. OpenAPI / Swagger
@@ -162,15 +162,15 @@ src/main/java/edu/eci/arsw/blueprints
     
     1. Se busca y se agrega la dependencia con la version más actual, compatible con la versión usada de springboot:
     
-        ![swaggerDependency](img_11.png)
+        ![swaggerDependency](imgs/img_11.png)
   
     2. Una vez agregada se valida que se esté generando correctamente, construyendo el docker y entrando a la url:
   
-        ![swaggerview](img_12.png)
+        ![swaggerview](imgs/img_12.png)
     
     3. Se agregaron las respectivas anotaciones y se personalizó una pequeña parte de la documentación.
     
-        ![swaggerPersonalization](img_13.png)
+        ![swaggerPersonalization](imgs/img_13.png)
     
 
 ### 5. Filtros de *Blueprints*
@@ -182,7 +182,8 @@ src/main/java/edu/eci/arsw/blueprints
 ---
 - Los filtros ya se encuentran implementados, se realiza la activación por medio del properties.
     
-    ![filtros](img_14.png)    
+    ![filtros](imgs/img_14.png)    
+
 
 ## ✅ Entregables
 
