@@ -2,6 +2,7 @@ package edu.eci.arsw.blueprints.model.entity;
 
 import jakarta.persistence.*;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

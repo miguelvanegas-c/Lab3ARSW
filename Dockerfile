@@ -13,7 +13,7 @@ RUN mvn -B -f pom.xml dependency:go-offline
 
 # Copy the source and build
 COPY src ./src
-RUN mvn -B -DskipTests package
+RUN mvn  package
 
 # Runtime image
 FROM eclipse-temurin:21-jre
