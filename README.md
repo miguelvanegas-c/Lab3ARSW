@@ -189,11 +189,36 @@ src/main/java/edu/eci/arsw/blueprints
     ![filtros](imgs/img_14.png)    
 
 
-### TEST
+### Buenas Prácticas de API REST
+
+#### Test
 Se realizaron pruebas de aceptación, para la capa de servicio y pruebas unitarias para validar el funcionamiento
 principalmente de los filtros, el siguiente fue el coverage conseguido:
     
 ![Coverage](imgs/img_15.png)
+
+#### DTO
+Se implementation DTOs para la tranferencia de datos entre capaz del sistema:
+
+![DTO](imgs/DTO.png)
+#### MAPPER
+Se implementaron mappers para la transformación de datos a entidades y viceversa,
+buscando reducir la cantidad de código:
+
+![mapper](imgs/mapper.png)
+
+- Para esto se usó mapstruck, que es una libreria que permite automatizar el mapeo de datos en clases de java.
+- Por lo tanto, se agregó la siguiente dependencia y puglin:
+
+![mapperDependency](imgs/mapperDependency.png)
+![puglin](imgs/puglin.png)
+#### LOMBOK
+Se usaron etiquetas de lombok, debido a que mantiene el código limpio y reduce la cantidad del codigo:
+
+**Etiquetas usadas:**
+1. Data
+2. NoArgsConstructor
+3. All ArgsConstructor
 
 ## ✅ Entregables
 
