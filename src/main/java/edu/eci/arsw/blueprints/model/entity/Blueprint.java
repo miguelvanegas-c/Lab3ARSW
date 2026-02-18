@@ -1,8 +1,9 @@
-package edu.eci.arsw.blueprints.model;
+package edu.eci.arsw.blueprints.model.entity;
 
 import jakarta.persistence.*;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 import java.util.ArrayList;
@@ -12,9 +13,11 @@ import java.util.List;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class Blueprint {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String author;
     private String name;
@@ -32,10 +35,12 @@ public class Blueprint {
         this.name = name;
     }
 
+
     public List<Point> getPoints() { return Collections.unmodifiableList(points); }
 
 
     public void addPoint(Point p) {
+        p.setBlueprint(this);
         points.add(p);
     }
 

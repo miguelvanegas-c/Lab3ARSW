@@ -1,4 +1,4 @@
-package edu.eci.arsw.blueprints.model;
+package edu.eci.arsw.blueprints.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class Point {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private int x;

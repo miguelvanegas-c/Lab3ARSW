@@ -1,7 +1,7 @@
 package edu.eci.arsw.blueprints.filters;
 
-import edu.eci.arsw.blueprints.model.Blueprint;
-import edu.eci.arsw.blueprints.model.Point;
+import edu.eci.arsw.blueprints.model.entity.Blueprint;
+import edu.eci.arsw.blueprints.model.entity.Point;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

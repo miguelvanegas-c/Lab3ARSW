@@ -1,18 +1,17 @@
 package edu.eci.arsw.blueprints.controllers;
 
-import edu.eci.arsw.blueprints.model.Blueprint;
-import edu.eci.arsw.blueprints.model.Point;
+import edu.eci.arsw.blueprints.model.dto.PointDTO;
+import edu.eci.arsw.blueprints.model.entity.Point;
+import edu.eci.arsw.blueprints.model.dto.BlueprintDTO;
 import edu.eci.arsw.blueprints.persistence.exception.BlueprintNotFoundException;
 import edu.eci.arsw.blueprints.persistence.exception.BlueprintPersistenceException;
 import edu.eci.arsw.blueprints.response.ApiResponse;
 import edu.eci.arsw.blueprints.services.BlueprintsServices;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
 import java.util.Set;
 
 @RestController
@@ -28,8 +27,8 @@ public class BlueprintsAPIController {
             description = "Return a blueprint list")
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Successful query")
     @GetMapping
-    public ApiResponse<Set<Blueprint>> getAll() {
-        Set<Blueprint> blueprints = services.getAllBlueprints();
+    public ApiResponse<Set<BlueprintDTO>> getAll() {
+        Set<BlueprintDTO> blueprints = services.getAllBlueprints();
         return new ApiResponse<>(HttpStatus.OK.value(), "The query was successful.", blueprints);
     }
 
@@ -39,8 +38,8 @@ public class BlueprintsAPIController {
             description = "Return a blueprint list")
     // GET /blueprints/{author}
     @GetMapping("/{author}")
-    public ApiResponse<Set<Blueprint>> byAuthor(@PathVariable String author) throws BlueprintNotFoundException{
-        Set<Blueprint> blueprints = services.getBlueprintsByAuthor(author);
+    public ApiResponse<Set<BlueprintDTO>> byAuthor(@PathVariable String author) throws BlueprintNotFoundException{
+        Set<BlueprintDTO> blueprints = services.getBlueprintsByAuthor(author);
         return new ApiResponse<>(HttpStatus.OK.value(), "The query was successful.", blueprints);
 
     }
@@ -51,8 +50,8 @@ public class BlueprintsAPIController {
             description = "Return a blueprint list")
     // GET /blueprints/{author}/{bpname}
     @GetMapping("/{author}/{bpname}")
-    public ApiResponse<Blueprint> byAuthorAndName(@PathVariable String author, @PathVariable String bpname) throws BlueprintNotFoundException {
-        Blueprint blueprint = services.getBlueprint(author, bpname);
+    public ApiResponse<BlueprintDTO> byAuthorAndName(@PathVariable String author, @PathVariable String bpname) throws BlueprintNotFoundException {
+        BlueprintDTO blueprint = services.getBlueprint(author, bpname);
         return new ApiResponse<>(HttpStatus.OK.value(), "The query was successful.", blueprint);
 
     }
@@ -63,10 +62,9 @@ public class BlueprintsAPIController {
             description = "Return the blueprint that was added")
     // POST /blueprints
     @PostMapping
-    public ApiResponse<Blueprint> add(@Valid @RequestBody NewBlueprintRequest req) throws BlueprintPersistenceException{
-        Blueprint bp = new Blueprint(req.author(), req.name(), req.points());
-        services.addNewBlueprint(bp);
-        return new ApiResponse<>(HttpStatus.CREATED.value(), "The blueprint was created", bp);
+    public ApiResponse<BlueprintDTO> add(@Valid @RequestBody BlueprintDTO req) throws BlueprintPersistenceException, BlueprintNotFoundException{
+        services.addNewBlueprint(req);
+        return new ApiResponse<>(HttpStatus.CREATED.value(), "The blueprint was created", req);
     }
 
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Successful query")
@@ -76,15 +74,11 @@ public class BlueprintsAPIController {
     // PUT /blueprints/{author}/{bpname}/points
     @PutMapping("/{author}/{bpname}/points")
     public ApiResponse<?> addPoint(@PathVariable String author, @PathVariable String bpname,
-                                      @RequestBody Point p) throws BlueprintNotFoundException{
-        services.addPoint(author, bpname, p.getX(), p.getY());
+                                      @RequestBody PointDTO p) throws BlueprintNotFoundException{
+        services.addPoint(author, bpname, p);
         return new ApiResponse<>(HttpStatus.ACCEPTED.value(), "The point was added", null );
 
     }
 
-    public record NewBlueprintRequest(
-            @NotBlank String author,
-            @NotBlank String name,
-            @Valid java.util.List<Point> points
-    ) { }
+
 }

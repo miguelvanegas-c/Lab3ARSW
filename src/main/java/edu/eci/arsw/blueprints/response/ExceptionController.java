@@ -9,16 +9,16 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ExceptionController {
     @ExceptionHandler(BlueprintNotFoundException.class)
-    public ApiResponse<?> handleResponsibleNotFound(RuntimeException ex) {
+    public ApiResponse<?> handleResponsibleNotFound(BlueprintNotFoundException ex) {
         return response(ex, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(BlueprintPersistenceException.class)
-    public ApiResponse<?> handleResponsibleBadRequest(RuntimeException ex){
+    public ApiResponse<?> handleResponsibleBadRequest(BlueprintPersistenceException ex){
         return response(ex, HttpStatus.BAD_REQUEST);
     }
 
-    private ApiResponse<?> response(RuntimeException ex, HttpStatus status){
+    private ApiResponse<?> response(Exception ex, HttpStatus status){
         return new ApiResponse<String>(status.value(),"An exception occurred during execution.",ex.getMessage());
     }
 

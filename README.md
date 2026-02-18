@@ -193,7 +193,7 @@ src/main/java/edu/eci/arsw/blueprints
 Se realizaron pruebas de aceptación, para la capa de servicio y pruebas unitarias para validar el funcionamiento
 principalmente de los filtros, el siguiente fue el coverage conseguido:
     
-![Coverage](img_15.png)
+![Coverage](imgs/img_15.png)
 
 ## ✅ Entregables
 

@@ -1,6 +1,6 @@
 package edu.eci.arsw.blueprints.filters;
 
-import edu.eci.arsw.blueprints.model.Blueprint;
+import edu.eci.arsw.blueprints.model.entity.Blueprint;
 import org.springframework.stereotype.Component;
 
 /**
