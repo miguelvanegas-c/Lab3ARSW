@@ -189,11 +189,20 @@ src/main/java/edu/eci/arsw/blueprints
     ![filtros](imgs/img_14.png)    
 
 
-### TEST
-Se realizaron pruebas de aceptación, para la capa de servicio y pruebas unitarias para validar el funcionamiento
+### Buenas Prácticas implementadas en el desarrollo de la API REST
+#### Unitest
+Se realizaron previo al desarrollo pruebas de integración, para la capa de servicio y pruebas unitarias para validar el funcionamiento
 principalmente de los filtros, el siguiente fue el coverage conseguido:
     
 ![Coverage](imgs/img_15.png)
+
+#### Implementaciones extras:
+##### DTOS
+Se implementó dtos para la transferencia de datos entre capaz, siguiendo buenas practicas del desarrollos de API REST.
+![img.png](img.png)
+##### MAPPERS
+
+##### LOMBOK
 
 ## ✅ Entregables
 
