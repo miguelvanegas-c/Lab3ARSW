@@ -2,6 +2,7 @@
 # Escuela Colombiana de Ingeniería – Arquitecturas de Software  
 
 ---
+![Link del taller](https://github.com/miguelvanegas-c/Client-Server.git)
 
 ## 📋 Requisitos
 - Java 21
