@@ -4,9 +4,11 @@ import edu.eci.arsw.blueprints.model.entity.Blueprint;
 import edu.eci.arsw.blueprints.model.entity.Point;
 import edu.eci.arsw.blueprints.persistence.exception.BlueprintNotFoundException;
 import edu.eci.arsw.blueprints.persistence.exception.BlueprintPersistenceException;
+import jakarta.persistence.LockModeType;
 import jakarta.transaction.Transactional;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
@@ -47,6 +49,7 @@ public interface PostgresBlueprintPersistence extends JpaRepository<Blueprint,Lo
         return new HashSet<>(blueprints);
     }
 
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Transactional
     default void addPoint(String author, String name, int x, int y) throws BlueprintNotFoundException{
         Blueprint blueprint = getBlueprint(author,name);
@@ -54,6 +57,7 @@ public interface PostgresBlueprintPersistence extends JpaRepository<Blueprint,Lo
         blueprint.addPoint(point);
         save(blueprint);
     }
+
     Set<Blueprint> findAllByAuthor(String author);
     Optional<Blueprint> findByAuthorAndName(String author, String name);
 }
